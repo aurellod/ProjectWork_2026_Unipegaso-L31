@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+  PROGETTO: Sostenibilità Caviro
+  Project Work — CdS Informatica per le Aziende Digitali (L-31)
+  Tema 3 — Tecnologia web per la sostenibilità d'impresa
+  Traccia 17 — Sviluppo di una pagina web per il download dei report di
+  sostenibilità di un'impresa del settore primario
+  ============================================================================ -->
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caviro — Sostenibilità | Bilancio di Sostenibilità</title>
+  <meta name="description" content="Gruppo Caviro: il vigneto più grande d'Italia. Scopri il nostro modello di economia circolare e scarica il Bilancio di Sostenibilità.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/img/CAVIRO-LOGO-2.png" type="image/png">
+</head>
+<body>
+
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ==========================================================
+       HEADER dinamico
+       ========================================================== -->
+  <header class="navbar" id="header">
+    <div class="container navbar__inner">
+      <a href="#home" class="navbar__logo">
+        <img src="assets/img/caviro-logo-gruppo.png" alt="Logo Gruppo Caviro">
+      </a>
+
+      <button class="navbar__toggle" id="navToggle" aria-label="Apri il menu di navigazione" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav>
+        <ul class="navbar__menu" id="navMenu">
+          <li><a href="#home" data-nav>Home</a></li>
+          <li><a href="#gruppo" data-nav>Il Gruppo</a></li>
+          <li><a href="#economia-circolare" data-nav>Economia Circolare</a></li>
+          <li><a href="#numeri" data-nav>Sostenibilità</a></li>
+          <li><a href="#certificazioni" data-nav>Certificazioni</a></li>
+          <li><a href="#report" class="navbar__cta">Scarica il Bilancio</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==========================================================
+         HERO
+         ========================================================== -->
+    <section class="hero" id="home">
+      <div class="hero__overlay"></div>
+      <div class="container hero__content">
+        <a href="#report" class="hero__badge">
+            &#8594; Sfoglia il Bilancio di Sostenibilità — 2025
+        </a>
+        <p class="eyebrow" data-reveal>Gruppo Caviro dal 1966</p>
+        <h1 data-reveal>Il vigneto più grande d'Italia.<br>Dove tutto torna.</h1>
+        <p class="hero__subtitle" data-reveal>
+          Un modello di economia circolare che trasforma ogni acino d'uva in
+          vino, energia rinnovabile e nuova materia per la terra. Scopri il
+          nostro impegno per l'ambiente, le persone e il territorio.
+        </p>
+        <div class="hero__actions" data-reveal>
+          <a href="#report" class="btn btn--primary">Scarica il Bilancio</a>
+          <a href="#gruppo" class="btn btn--ghost">Scopri di più</a>
+        </div>
+      </div>
+    
+      <a href="#gruppo" class="hero__scroll-cue" aria-hidden="true"></a>
+    </section>
+
+    <!-- ==========================================================
+         IL GRUPPO — presentazione e numeri
+         ========================================================== -->
+    <section class="section gruppo" id="gruppo">
+      <div class="container gruppo__grid">
+        <div class="gruppo__text" data-reveal>
+          <p class="section-eyebrow">Il Gruppo</p>
+          <h2>Una cooperativa, 60 anni di storia</h2>
+          <p>
+            Dal 1966 Caviro trasforma l'energia di ogni acino in valore per la
+            filiera, il territorio e il pianeta. Siamo una <strong>cooperativa
+            vitivinicola integrata</strong>: facciamo dialogare agricoltura e
+            industria, natura e tecnologia, per generare valore condiviso
+            lungo tutta la filiera, dalla vigna alla tavola.
+          </p>
+          <p>
+            Il nostro modello nasce da oltre <strong>11.500 soci viticoltori
+            </strong> che coltivano <strong>36.200 ettari di vigneti</strong>
+            in 8 regioni italiane. Ogni anno confezioniamo circa
+            <strong>150 milioni di litri di vino</strong>, che raggiungono
+            consumatori in <strong>90 paesi del mondo</strong>.
+          </p>
+          <p>
+            Nulla si distrugge, tutto si trasforma: gli scarti della
+            lavorazione dell'uva diventano energia, fertilizzanti naturali e
+            prodotti nobili ad alto valore aggiunto, in un circolo virtuoso
+            che riconsegna sostanza organica alla vigna da cui tutto ha
+            avuto inizio.
+          </p>
+        </div>
+        <div class="gruppo__image" data-reveal>
+          <img src="assets/img/chi-siamo.jpg" alt="Vigneti e territorio del Gruppo Caviro">
+        </div>
+      </div>
+
+      <!-- Statistiche animate -->
+      <div class="container">
+        <div class="stat-strip">
+          <div class="stat-strip__item" data-reveal>
+            <span class="counter-value" data-target="1966" data-suffix="">0</span>
+            <p>Anno di fondazione</p>
+          </div>
+          <div class="stat-strip__item" data-reveal>
+            <span class="counter-value" data-target="11500" data-suffix="+">0</span>
+            <p>Soci viticoltori</p>
+          </div>
+          <div class="stat-strip__item" data-reveal>
+            <span class="counter-value" data-target="36200" data-suffix="">0</span>
+            <p>Ettari di vigneti</p>
+          </div>
+          <div class="stat-strip__item" data-reveal>
+            <span class="counter-value" data-target="90" data-suffix="">0</span>
+            <p>Paesi raggiunti</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         LE TRE ERRE DI CAVIRO
+         ========================================================== -->
+    <section class="section erre" id="tre-erre">
+      <div class="container">
+        <p class="section-eyebrow" data-reveal>Il nostro modello</p>
+        <h2 data-reveal>Le tre R di Caviro</h2>
+        <p class="section-intro" data-reveal>
+          Continuiamo a credere e investire nel modello di economia circolare,
+          con la consapevolezza che nulla si distrugge e tutto si trasforma.
+        </p>
+
+        <div class="erre__grid">
+          <article class="erre-card" data-reveal>
+            <div class="erre-card__number">01</div>
+            <h3>Ritirare</h3>
+            <p>L'attività nasce in vigna, dove si coltivano le uve vinificate
+              dalle cantine socie. Gli scarti della lavorazione, insieme a
+              quelli delle filiere agroalimentari e alle potature del verde
+              pubblico, diventano nuova materia prima: centinaia di migliaia
+              di tonnellate ogni anno.</p>
+          </article>
+
+          <article class="erre-card" data-reveal>
+            <div class="erre-card__number">02</div>
+            <h3>Rigenerare</h3>
+            <p>Doniamo nuova vita agli scarti trasformandoli in prodotti ad
+              alto valore aggiunto, utilizziamo packaging con alta
+              percentuale di materiali riciclati e inviamo a recupero oltre
+              il <strong>99%</strong> degli scarti prodotti.</p>
+          </article>
+
+          <article class="erre-card" data-reveal>
+            <div class="erre-card__number">03</div>
+            <h3>Restituire</h3>
+            <p>Confezioniamo ogni anno 150 milioni di litri di vino per le
+              tavole italiane e per 90 paesi nel mondo. Gli scarti di
+              lavorazione forniscono anche energia termica, elettrica e
+              fertilizzanti naturali che tornano alla terra.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         ECONOMIA CIRCOLARE — diagramma a ciclo
+         Rappresentazione visiva del flusso: Vigna → Uva → Vino /
+         Derivati / Prodotti nobili → Scarti → Bioenergia /
+         Fertilizzanti → torna alla Vigna. Ogni nodo si evidenzia
+         al passaggio del mouse (vedi CSS .flow-node:hover).
+         ========================================================== -->
+    <section class="section economia" id="economia-circolare">
+      <div class="container">
+        <p class="section-eyebrow section-eyebrow--light" data-reveal>Economia circolare</p>
+        <h2 class="economia__title" data-reveal>Il viaggio virtuoso della materia</h2>
+        <p class="section-intro section-intro--light" data-reveal>
+          36.200 ettari vitati in 8 regioni italiane: ogni vigna esprime il
+          suo massimo valore e racconta una storia diversa. Tutto quello che
+          nasce dalla terra viene valorizzato dal nostro circolo virtuoso,
+          dal grappolo d'uva al residuo di potatura.
+        </p>
+
+        <div class="flow" data-reveal>
+          <div class="flow-node flow-node--start"><span>Vigna</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node"><span>Uva</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node"><span>Vino</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node"><span>Derivati di filiera</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node"><span>Prodotti nobili</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node"><span>Scarti vegetali</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node"><span>Bioenergia</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node flow-node--end"><span>Fertilizzanti naturali</span></div>
+          <div class="flow-arrow flow-arrow--loop" aria-hidden="true">↻ torna alla vigna</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SOSTENIBILITÀ IN NUMERI
+         ========================================================== -->
+    <section class="section numeri" id="numeri">
+      <div class="container">
+        <p class="section-eyebrow" data-reveal>Il rispetto è nella nostra natura</p>
+        <h2 data-reveal>Sostenibilità in numeri, il nostro impegno concreto</h2>
+
+        <div class="numeri__columns">
+          <div class="numeri__col" data-reveal>
+            <h3 class="numeri__col-title numeri__col-title--green">Ambientale</h3>
+            <div class="numero-row">
+              <span class="counter-value" data-target="99" data-suffix="%">0</span>
+              <p>degli scarti recuperati e rigenerati</p>
+            </div>
+            <div class="numero-row">
+              <span class="counter-value" data-target="100" data-suffix="%">0</span>
+              <p>di autosufficienza energetica</p>
+            </div>
+            <div class="numero-row">
+              <span class="counter-value" data-target="1.3" data-suffix=" mln kWh">0</span>
+              <p>di energia rinnovabile autoprodotta ogni anno</p>
+            </div>
+          </div>
+
+          <div class="numeri__col" data-reveal>
+            <h3 class="numeri__col-title numeri__col-title--gold">Sociale</h3>
+            <div class="numero-row">
+              <span class="counter-value" data-target="11500" data-suffix="+">0</span>
+              <p>famiglie di soci viticoltori coinvolte nella filiera</p>
+            </div>
+            <div class="numero-row">
+              <span class="counter-value" data-target="1" data-suffix=" mln+">0</span>
+              <p> di controlli di qualità e analisi di sicurezza alimentare ogni anno</p>
+            </div>
+            <div class="numero-row">
+              <span class="counter-value" data-target="13" data-suffix="">0</span>
+              <p>Obiettivi ONU Agenda 2030 su cui Caviro agisce concretamente</p>
+            </div>
+          </div>
+
+          <div class="numeri__col" data-reveal>
+            <h3 class="numeri__col-title numeri__col-title--wine">Economica</h3>
+            <div class="numero-row">
+              <span class="counter-value" data-target="351" data-suffix=" mln">0</span>
+              <p>di euro di ricavo</p>
+            </div>
+            <div class="numero-row">
+              <span class="counter-value" data-target="90" data-suffix="">0</span>
+              <p>paesi di destinazione dei prodotti nel mondo</p>
+            </div>
+            <div class="numero-row">
+              <span class="counter-value" data-target="7" data-suffix="ª">0</span>
+              <p>edizione del Bilancio di Sostenibilità, ora secondo lo standard europeo ESRS</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SDG ONU
+         ========================================================== -->
+    <section class="section sdg" id="sdg">
+      <div class="container">
+        <p class="section-eyebrow" data-reveal>Insieme all'ONU</p>
+        <h2 data-reveal>13 Obiettivi dell'Agenda 2030</h2>
+        <p class="section-intro" data-reveal>
+          Il VII Bilancio di Sostenibilità di Caviro (2025) è stato redatto
+          per la prima volta secondo i nuovi standard europei <strong>ESRS</strong>,
+          in coerenza con 13 Obiettivi di Sviluppo Sostenibile (SDGs)
+          dell'Agenda 2030 delle Nazioni Unite — dalla salute e benessere
+          alla lotta al cambiamento climatico.
+        </p>
+        <div class="sdg__highlight" data-reveal>
+          <h3>SDG 3 — Salute e benessere</h3>
+          <p>
+            Tra le iniziative a supporto della collettività: la collaborazione
+            con IOR, il Museo Internazionale delle Ceramiche di Faenza, la
+            Diabetes Marathon e il Festival del Buon Vivere di Forlì. Per la
+            tutela dei consumatori, Caviro effettua oltre <strong>1 milione
+            di controlli l'anno</strong> a garanzia di qualità e sicurezza
+            del prodotto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         CERTIFICAZIONI
+         ========================================================== -->
+    <section class="section certificazioni" id="certificazioni">
+      <div class="container">
+        <p class="section-eyebrow" data-reveal>La misura del nostro impegno</p>
+        <h2 data-reveal>Certificazioni</h2>
+        <p class="section-intro" data-reveal>
+          Un percorso di certificazioni in ambito sicurezza alimentare,
+          salute e sicurezza sul lavoro, ambiente, qualità e responsabilità
+          sociale, costruito nel corso di oltre vent'anni.
+        </p>
+
+        <div class="timeline">
+          <div class="timeline__item" data-reveal>
+            <div class="timeline__year">2020</div>
+            <div class="timeline__content">
+              <h4>Standard Equalitas Rev. 3</h4>
+              <p>Sostenibilità del vino — Caviro SCA, Forlì</p>
+            </div>
+          </div>
+          <div class="timeline__item" data-reveal>
+            <div class="timeline__year">2019</div>
+            <div class="timeline__content">
+              <h4>ISO 45001</h4>
+              <p>Salute e sicurezza sui luoghi di lavoro — Caviro Extra</p>
+            </div>
+          </div>
+          <div class="timeline__item" data-reveal>
+            <div class="timeline__year">2018</div>
+            <div class="timeline__content">
+              <h4>SA8000</h4>
+              <p>Responsabilità sociale — Caviro SCA (Forlì, Faenza, Savignano)</p>
+            </div>
+          </div>
+          <div class="timeline__item" data-reveal>
+            <div class="timeline__year">2015</div>
+            <div class="timeline__content">
+              <h4>FSSC 22000</h4>
+              <p>Sicurezza alimentare — Caviro Extra, Faenza/Treviso</p>
+            </div>
+          </div>
+          <div class="timeline__item" data-reveal>
+            <div class="timeline__year">2008</div>
+            <div class="timeline__content">
+              <h4>ISO 14001</h4>
+              <p>Gestione ambientale — Caviro SCA, Forlì</p>
+            </div>
+          </div>
+          <div class="timeline__item" data-reveal>
+            <div class="timeline__year">2003–2006</div>
+            <div class="timeline__content">
+              <h4>BRC / IFS</h4>
+              <p>Sicurezza alimentare — stabilimenti di Forlì e Savignano</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         DOWNLOAD BILANCIO DI SOSTENIBILITÀ
+         Il file PDF NON è incluso in questo pacchetto: l'utente lo
+         scarica dal sito ufficiale caviro.com e lo salva nel percorso
+         indicato qui sotto (assets/pdf/bilancio-sostenibilita-caviro.pdf).
+         ========================================================== -->
+    <section class="section report" id="report">
+      <div class="container report__box">
+        <div class="report__image" data-reveal>
+          <img src="assets/img/CopertinaBilancio.jpg" alt="Copertina Bilancio di Sostenibilità Caviro 2025">
+        </div>
+        <div class="report__text" data-reveal>
+          <p class="section-eyebrow section-eyebrow--light">Bilancio di Sostenibilità 2025</p>
+          <h2>Un nuovo valore d'impresa</h2>
+          <p>
+            Il valore di un'impresa si misura non solo con i classici
+            indicatori economico-finanziari, ma sempre di più con l'impatto
+            che ha sul territorio. Il nostro Bilancio di Sostenibilità
+            racconta i risultati ottenuti, i progetti in corso e le
+            prospettive future — giunto quest'anno alla settima edizione,
+            redatto per la prima volta secondo i nuovi standard europei ESRS.
+          </p>
+          <!--
+            Percorso relativo al PDF: l'attributo "download" suggerisce al
+            browser di scaricare il file con il nome indicato invece di
+            aprirlo. Il file va posizionato in assets/pdf/ con questo
+            identico nome (vedi README.md).
+          -->
+          <a href="BDS_Caviro_ITA_cop_D.pdf"
+             download="BilancioDiSostenibilitaCaviro2025.pdf"
+             class="btn btn--download">
+             ⬇ Scarica il Bilancio (PDF)
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================
+       FOOTER
+       ========================================================== -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__col">
+        <img src="assets/img/caviro-logo-gruppo.png" alt="Logo Gruppo Caviro" class="footer__logo">
+        <p>Via Convertite, 12<br>48018 Faenza (RA)</p>
+        <p>P.IVA 00085350395</p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Link utili</h4>
+        <ul>
+          <li><a href="#gruppo">Il Gruppo</a></li>
+          <li><a href="#economia-circolare">Economia circolare</a></li>
+          <li><a href="#report">Bilancio di Sostenibilità</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4>Seguici</h4>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/gruppocaviro/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/GruppoCaviro/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.linkedin.com/company/gruppocaviro/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4>Newsletter</h4>
+        <p>Resta aggiornato sulle iniziative di sostenibilità di Caviro.</p>
+        <!-- Form gestito solo lato client (vedi script.js): non invia dati
+             a un server reale, essendo un prototipo accademico -->
+        <form class="footer__newsletter" id="newsletterForm">
+          <input type="email" id="newsletterEmail" placeholder="La tua email" required>
+          <button type="submit">Iscriviti</button>
+        </form>
+        <p class="footer__newsletter-msg" id="newsletterMsg" role="status"></p>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; 2026 Gruppo Caviro. Progetto realizzato a scopo didattico.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

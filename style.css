@@ -1,0 +1,628 @@
+/* ==========================================================================
+   Caviro — Sostenibilità
+   Foglio di stile principale
+
+   Palette e tipografia allineate al "Manuale di Normazione Marchi Gruppo
+   Caviro" (Brand Manual 2023): rosso vinaccia Pantone 209C come colore
+   primario, con le relative varianti da manuale (P7645C, P209C 65%,
+   P209C 30%) e il grigio neutro "Nero 40%". Titoli in Merriweather,
+   testo in Lato, come da manuale (pag. 20-21).
+
+   Organizzato in:
+   1) variabili globali   2) reset/base   3) utility
+   4) scroll progress bar 5) navbar       6) hero
+   7) sezioni generiche   8) sezioni specifiche (gruppo, tre erre,
+      economia circolare, numeri, sdg, certificazioni/timeline, report)
+   9) footer   10) animazioni scroll-reveal   11) media query
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1) VARIABILI CSS
+   -------------------------------------------------------------------------- */
+:root {
+  /* Rosso vinaccia Pantone 209C — colore primario del marchio Caviro */
+  --wine: #6f263d;
+  /* Pantone 7645C — variante più scura (fondi, gradienti) */
+  --wine-dark: #502b3a;
+  /* Pantone 209C al 65% — variante media (hover, accenti) */
+  --wine-mid: #a7707b;
+  /* Pantone 209C al 30% — variante più chiara (badge, dettagli su fondo scuro) */
+  --wine-pale: #d7babf;
+  /* "Nero" al 40% — grigio neutro di supporto, da manuale */
+  --gray: #b2b2b2;
+  --gray-dark: #595959;
+
+  --bg: #ffffff;
+  --bg-alt: #f7f2f3;
+  --white: #ffffff;
+  --text: #262223;
+  --text-light: #6e6b6c;
+
+  --font-display: 'Merriweather', Georgia, serif;
+  --font-main: 'Lato', 'Segoe UI', sans-serif;
+
+  --max-width: 1200px;
+  --radius: 14px;
+  --transition: 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --shadow: 0 14px 34px rgba(80, 43, 58, 0.16);
+}
+
+/* --------------------------------------------------------------------------
+   2) RESET DI BASE
+   -------------------------------------------------------------------------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-main);
+  color: var(--text);
+  background-color: var(--bg);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--wine-dark);
+  line-height: 1.2;
+}
+
+h2 { font-size: clamp(1.9rem, 3.2vw, 2.6rem); margin-bottom: 0.7rem; }
+h3 { font-size: 1.25rem; margin-bottom: 0.6rem; }
+p { color: var(--text-light); }
+
+/* --------------------------------------------------------------------------
+   3) UTILITY
+   -------------------------------------------------------------------------- */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.6rem; }
+.section { padding: 5.5rem 0; }
+
+.section-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--wine);
+  margin-bottom: 0.7rem;
+  font-family: var(--font-main);
+}
+
+.section-eyebrow--light { color: var(--wine-pale); }
+
+.section-intro { max-width: 680px; margin-bottom: 2.6rem; }
+.section-intro--light { color: rgba(255, 255, 255, 0.82); }
+
+.btn {
+  display: inline-block;
+  padding: 0.95rem 1.9rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-family: var(--font-main);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--wine), var(--wine-mid));
+  color: var(--white);
+}
+.btn--primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(111, 38, 61, 0.4);
+}
+
+.btn--ghost { border-color: var(--white); color: var(--white); }
+.btn--ghost:hover { background-color: var(--white); color: var(--wine-dark); }
+
+.btn--download {
+  background-color: var(--wine);
+  color: var(--white);
+  box-shadow: var(--shadow);
+}
+.btn--download:hover { transform: translateY(-3px) scale(1.03); background-color: var(--wine-mid); }
+
+/* --------------------------------------------------------------------------
+   4) SCROLL PROGRESS BAR
+   Barra sottile in cima alla pagina, la cui larghezza (width, in %) viene
+   aggiornata da script.js in base alla posizione di scroll corrente.
+   -------------------------------------------------------------------------- */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--wine-mid), var(--wine));
+  z-index: 2000;
+  transition: width 0.1s linear;
+}
+
+/* --------------------------------------------------------------------------
+   5) NAVBAR
+   -------------------------------------------------------------------------- */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  transition: background-color var(--transition), box-shadow var(--transition), padding var(--transition);
+  padding: 0.4rem 0;
+}
+
+/* Applicata via JS dopo un certo scroll: sfondo pieno, ombra e altezza ridotta */
+.navbar.is-scrolled {
+  background-color: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 6px 24px rgba(80, 43, 58, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+  transition: height var(--transition);
+}
+.navbar.is-scrolled .navbar__inner { height: 64px; }
+
+.navbar__logo img { height: 40px; transition: height var(--transition); }
+.navbar.is-scrolled .navbar__logo img { height: 34px; }
+
+.navbar__menu { display: flex; align-items: center; gap: 2rem; }
+
+.navbar__menu a {
+  font-weight: 500;
+  font-size: 0.92rem;
+  color: var(--text);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color var(--transition);
+}
+
+/* Sottolineatura animata: cresce da 0 a piena larghezza su hover/attivo */
+.navbar__menu a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--wine);
+  transition: width var(--transition);
+}
+.navbar__menu a:hover::after,
+.navbar__menu a.is-active::after { width: 100%; }
+.navbar__menu a:hover,
+.navbar__menu a.is-active { color: var(--wine); }
+
+.navbar__cta {
+  background-color: var(--wine);
+  color: var(--white) !important;
+  padding: 0.6rem 1.3rem;
+  border-radius: 50px;
+  transition: background-color var(--transition), transform var(--transition);
+}
+.navbar__cta::after { display: none; }
+.navbar__cta:hover { background-color: var(--wine-dark); transform: translateY(-2px); }
+
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 0.4rem;
+}
+.navbar__toggle span {
+  display: block; width: 26px; height: 3px;
+  background-color: var(--wine-dark); border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+/* --------------------------------------------------------------------------
+   6) HERO
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-image: url('../assets/img/hero-vigneto.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(80,43,58,0.85) 0%, rgba(80,43,58,0.62) 55%, rgba(38,34,35,0.92) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  color: var(--white);
+  padding-top: 78px;
+  max-width: 800px;
+}
+
+.hero__badge {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--wine-pale);
+  color: var(--wine-pale);
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(6px);
+  transition: background-color var(--transition), transform var(--transition);
+}
+.hero__badge:hover { background-color: rgba(255, 255, 255, 0.22); transform: translateY(-2px); }
+
+.hero .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.85rem;
+  color: var(--wine-pale);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.hero h1 {
+  color: var(--white);
+  font-size: clamp(2.3rem, 5.2vw, 3.6rem);
+  margin-bottom: 1.3rem;
+}
+
+.hero__subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.08rem;
+  margin-bottom: 2.2rem;
+  max-width: 620px;
+}
+
+.hero__actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* Indicatore di scroll: piccola freccia animata in basso, con
+   animazione CSS "bounce" infinita per invitare lo scroll */
+.hero__scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px; height: 26px;
+  border-right: 2px solid var(--wine-pale);
+  border-bottom: 2px solid var(--wine-pale);
+  transform: translateX(-50%) rotate(45deg);
+  animation: bounce-cue 2s infinite;
+  z-index: 1;
+}
+@keyframes bounce-cue {
+  0%, 100% { margin-top: 0; opacity: 0.6; }
+  50% { margin-top: 12px; opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   7) IL GRUPPO
+   -------------------------------------------------------------------------- */
+.gruppo__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3.5rem;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+.gruppo__text p { margin-bottom: 1rem; }
+.gruppo__text strong { color: var(--wine); }
+.gruppo__image img { border-radius: var(--radius); box-shadow: var(--shadow); }
+
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  background: linear-gradient(135deg, var(--wine-dark), var(--wine));
+  border-radius: var(--radius);
+  padding: 2.4rem 1.5rem;
+  text-align: center;
+}
+.stat-strip__item .counter-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--wine-pale);
+  margin-bottom: 0.4rem;
+}
+.stat-strip__item p { color: rgba(255,255,255,0.85); font-size: 0.88rem; }
+
+/* --------------------------------------------------------------------------
+   7b) LE TRE ERRE
+   -------------------------------------------------------------------------- */
+.erre { background-color: var(--white); }
+.erre__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+.erre-card {
+  background-color: var(--bg);
+  border-radius: var(--radius);
+  padding: 2.3rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.erre-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+.erre-card__number {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--wine-pale);
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   7c) ECONOMIA CIRCOLARE — diagramma di flusso
+   -------------------------------------------------------------------------- */
+.economia {
+  background: linear-gradient(160deg, var(--wine-dark), var(--wine));
+  color: var(--white);
+}
+.economia__title { color: var(--white); }
+
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+.flow-node {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50px;
+  padding: 0.8rem 1.4rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: background-color var(--transition), transform var(--transition), border-color var(--transition);
+}
+.flow-node:hover {
+  background-color: var(--wine-pale);
+  color: var(--wine-dark);
+  border-color: var(--wine-pale);
+  transform: scale(1.08);
+}
+.flow-node--start, .flow-node--end {
+  background-color: var(--wine-pale);
+  color: var(--wine-dark);
+  border-color: var(--wine-pale);
+}
+.flow-arrow { color: var(--wine-pale); font-size: 1.2rem; }
+.flow-arrow--loop {
+  width: 100%;
+  text-align: center;
+  margin-top: 0.6rem;
+  font-style: italic;
+  color: var(--wine-pale);
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   7d) SOSTENIBILITÀ IN NUMERI
+   -------------------------------------------------------------------------- */
+.numeri__columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.numeri__col {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  padding: 2.2rem;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--wine);
+  transition: transform var(--transition);
+}
+.numeri__col:hover { transform: translateY(-6px); }
+.numeri__col-title--green { color: var(--gray-dark); }
+.numeri__col-title--gold { color: var(--wine-mid); }
+.numeri__col-title--wine { color: var(--wine); }
+
+.numero-row { margin-bottom: 1.3rem; }
+.numero-row .counter-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--wine-dark);
+}
+.numero-row p { font-size: 0.88rem; }
+
+/* --------------------------------------------------------------------------
+   7e) SDG ONU
+   -------------------------------------------------------------------------- */
+.sdg { background-color: var(--bg-alt); }
+.sdg__highlight {
+  background-color: var(--white);
+  border-left: 4px solid var(--wine);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.8rem 2rem;
+  box-shadow: var(--shadow);
+}
+
+/* --------------------------------------------------------------------------
+   7f) CERTIFICAZIONI — timeline verticale
+   -------------------------------------------------------------------------- */
+.timeline {
+  position: relative;
+  margin-top: 2.5rem;
+  padding-left: 2rem;
+  border-left: 3px solid var(--wine-pale);
+}
+.timeline__item {
+  position: relative;
+  padding: 0 0 2.2rem 1.8rem;
+}
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  left: -2.42rem;
+  top: 0.2rem;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background-color: var(--wine);
+  border: 3px solid var(--wine-pale);
+  transition: transform var(--transition), background-color var(--transition);
+}
+.timeline__item:hover::before { transform: scale(1.3); background-color: var(--wine-mid); }
+.timeline__year {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--wine);
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+.timeline__content {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.4rem;
+  box-shadow: 0 6px 18px rgba(80,43,58,0.08);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.timeline__item:hover .timeline__content {
+  transform: translateX(6px);
+  box-shadow: var(--shadow);
+}
+.timeline__content p { font-size: 0.88rem; margin: 0; }
+
+/* --------------------------------------------------------------------------
+   7g) DOWNLOAD BILANCIO
+   -------------------------------------------------------------------------- */
+.report { background-color: var(--white); }
+.report__box {
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr;
+  gap: 3rem;
+  align-items: center;
+  background: linear-gradient(135deg, var(--wine-pale), var(--wine-mid));
+  border-radius: var(--radius);
+  padding: 3rem;
+}
+.report__image img {
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(80,43,58,0.25);
+  transition: transform var(--transition);
+}
+.report__image img:hover { transform: translateY(-6px) rotate(-1deg); }
+.report h2 { color: var(--wine-dark); }
+.report p { color: rgba(43,33,31,0.85); margin-bottom: 1.8rem; }
+
+/* --------------------------------------------------------------------------
+   8) FOOTER
+   -------------------------------------------------------------------------- */
+.footer { background-color: var(--wine-dark); color: rgba(255,255,255,0.82); padding-top: 4rem; }
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1.3fr;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
+}
+.footer__logo { height: 38px; margin-bottom: 1rem; filter: brightness(0) invert(1); }
+.footer h4 { color: var(--white); margin-bottom: 1rem; font-size: 1rem; }
+.footer__col ul li { margin-bottom: 0.5rem; }
+.footer__col a { color: rgba(255,255,255,0.75); transition: color var(--transition); }
+.footer__col a:hover { color: var(--wine-pale); }
+.footer__social { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.footer__newsletter { display: flex; gap: 0.5rem; margin-top: 0.8rem; }
+.footer__newsletter input {
+  flex: 1; padding: 0.6rem 0.8rem; border-radius: 6px; border: none; font-family: var(--font-main);
+}
+.footer__newsletter button {
+  padding: 0.6rem 1rem; border-radius: 6px; border: none;
+  background-color: var(--wine); color: var(--white); font-weight: 600; cursor: pointer;
+  transition: background var(--transition);
+}
+.footer__newsletter button:hover { background-color: var(--wine-mid); }
+.footer__newsletter-msg { margin-top: 0.6rem; font-size: 0.85rem; color: var(--wine-pale); min-height: 1.2em; }
+
+.footer__bottom {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  text-align: center; padding: 1.5rem 0; font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   9) ANIMAZIONI SCROLL-REVEAL
+   Tutti gli elementi con attributo [data-reveal] partono leggermente
+   traslati verso il basso e trasparenti; script.js aggiunge la classe
+   "is-visible" quando l'elemento entra nel viewport (IntersectionObserver),
+   attivando la transizione verso lo stato finale.
+   ========================================================================== */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+[data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+/* Effetto "stagger": ritardo crescente per i figli diretti di una griglia,
+   applicato via variabile CSS --delay impostata da script.js */
+[data-reveal] { transition-delay: var(--delay, 0s); }
+
+/* ==========================================================================
+   10) MEDIA QUERIES — RESPONSIVITÀ
+   ========================================================================== */
+@media (max-width: 992px) {
+  .gruppo__grid { grid-template-columns: 1fr; }
+  .gruppo__image { order: -1; }
+  .stat-strip { grid-template-columns: repeat(2, 1fr); }
+  .erre__grid { grid-template-columns: 1fr; }
+  .numeri__columns { grid-template-columns: 1fr; }
+  .report__box { grid-template-columns: 1fr; text-align: center; }
+  .report__image { max-width: 260px; margin: 0 auto; }
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .navbar__toggle { display: flex; }
+
+  .navbar__menu {
+    position: absolute;
+    top: 78px; left: 0; width: 100%;
+    flex-direction: column;
+    background-color: var(--bg);
+    padding: 1.5rem;
+    gap: 1.2rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    transform: translateY(-150%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--transition), opacity var(--transition);
+  }
+  .navbar__menu.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+  .navbar__toggle.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .navbar__toggle.is-active span:nth-child(2) { opacity: 0; }
+  .navbar__toggle.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  .flow { flex-direction: column; align-items: stretch; }
+  .flow-arrow { text-align: center; transform: rotate(90deg); }
+  .flow-arrow--loop { transform: none; }
+
+  .footer__grid { grid-template-columns: 1fr; text-align: left; }
+  .section { padding: 3.8rem 0; }
+}
+
+@media (max-width: 480px) {
+  .stat-strip { grid-template-columns: 1fr 1fr; }
+  .hero__actions { flex-direction: column; }
+  .btn { text-align: center; }
+}

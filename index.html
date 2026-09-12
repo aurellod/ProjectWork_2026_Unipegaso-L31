@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<!-- ============================================================================
-  PROGETTO: Sostenibilità Caviro
+<!--PROGETTO: Sostenibilità Caviro
   Project Work — CdS Informatica per le Aziende Digitali (L-31)
   Tema 3 — Tecnologia web per la sostenibilità d'impresa
   Traccia 17 — Sviluppo di una pagina web per il download dei report di
-  sostenibilità di un'impresa del settore primario
-  ============================================================================ -->
+  sostenibilità di un'impresa del settore primario-->
+  
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -25,9 +24,7 @@
 
   <div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- ==========================================================
-       HEADER dinamico
-       ========================================================== -->
+  <!--Header-->
   <header class="navbar" id="header">
     <div class="container navbar__inner">
       <a href="#home" class="navbar__logo">
@@ -53,9 +50,7 @@
 
   <main>
 
-    <!-- ==========================================================
-         HERO
-         ========================================================== -->
+    <!--Hero-->
     <section class="hero" id="home">
       <div class="hero__overlay"></div>
       <div class="container hero__content">
@@ -78,9 +73,7 @@
       <a href="#gruppo" class="hero__scroll-cue" aria-hidden="true"></a>
     </section>
 
-    <!-- ==========================================================
-         IL GRUPPO — presentazione e numeri
-         ========================================================== -->
+    <!--Il Gruppo-->
     <section class="section gruppo" id="gruppo">
       <div class="container gruppo__grid">
         <div class="gruppo__text" data-reveal>
@@ -136,9 +129,7 @@
       </div>
     </section>
 
-    <!-- ==========================================================
-         LE TRE ERRE DI CAVIRO
-         ========================================================== -->
+    <!--Sez. le 3 erre-->
     <section class="section erre" id="tre-erre">
       <div class="container">
         <p class="section-eyebrow" data-reveal>Il nostro modello</p>
@@ -180,15 +171,7 @@
       </div>
     </section>
 
-    <!-- ==========================================================
-         ECONOMIA CIRCOLARE — diagramma a ciclo
-         Diagramma circolare: Vigna → Uva → Vino → Derivati →
-         Prodotti nobili → Scarti → Bioenergia → Fertilizzanti →
-         torna alla Vigna. Nodi disposti lungo un cerchio tramite
-         CSS custom property --i (vedi .flow-node e .flow-arrow).
-         Su mobile torna a una lista verticale (media query 768px).
-         Ogni nodo si evidenzia al passaggio del mouse (.flow-node:hover).
-         ========================================================== -->
+  <!--Economia circolare-->
     <section class="section economia" id="economia-circolare">
       <div class="container">
         <p class="section-eyebrow section-eyebrow--light" data-reveal>Economia circolare</p>
@@ -201,34 +184,42 @@
         </p>
 
         <div class="flow" data-reveal>
-          <div class="flow__center" aria-hidden="true">
-            <!--<span class="flow__center-icon">↻</span> -->
-            <span class="flow__center-label">Il nostro circolo virtuoso</span>
+          <div class="flow__ring" id="flowRing" role="group" aria-label="Le otto fasi dell'economia circolare Caviro">
+            <button type="button" class="flow-node" style="--i:0" data-label="Vigna">
+              <span class="flow-node__text">VIGNA</span>
+            </button>
+            <button type="button" class="flow-node" style="--i:1" data-label="Uva">
+              <span class="flow-node__text">UVA</span>
+            </button>
+            <button type="button" class="flow-node" style="--i:2" data-label="Vino">
+              <span class="flow-node__text">VINO</span>
+            </button>
+            <button type="button" class="flow-node" style="--i:3" data-label="Derivati di filiera">
+              <span class="flow-node__text">DERIVATI<br>FILIERA</span>
+            </button>
+            <button type="button" class="flow-node" style="--i:4" data-label="Prodotti nobili">
+              <span class="flow-node__text">PRODOTTI<br>NOBILI</span>
+            </button>
+            <button type="button" class="flow-node" style="--i:5" data-label="Scarti vegetali">
+              <span class="flow-node__text">SCARTI<br>VEGETALI</span>
+            </button>
+            <button type="button" class="flow-node" style="--i:6" data-label="Bioenergia">
+              <span class="flow-node__text">BIOENERGIA</span>
+            </button>
+            <button type="button" class="flow-node" style="--i:7" data-label="Fertilizzanti naturali">
+              <span class="flow-node__text">FERTILIZZANTI<br>NATURALI</span>
+            </button>
           </div>
 
-          <div class="flow-node flow-node--start" style="--i:0"><span>Vigna</span></div>
-          <div class="flow-arrow" aria-hidden="true" style="--i:0.5">→</div>
-          <div class="flow-node" style="--i:1"><span>Uva</span></div>
-          <div class="flow-arrow" aria-hidden="true" style="--i:1.5">→</div>
-          <div class="flow-node" style="--i:2"><span>Vino</span></div>
-          <div class="flow-arrow" aria-hidden="true" style="--i:2.5">→</div>
-          <div class="flow-node" style="--i:3"><span>Derivati di filiera</span></div>
-          <div class="flow-arrow" aria-hidden="true" style="--i:3.5">→</div>
-          <div class="flow-node" style="--i:4"><span>Prodotti nobili</span></div>
-          <div class="flow-arrow" aria-hidden="true" style="--i:4.5">→</div>
-          <div class="flow-node" style="--i:5"><span>Scarti vegetali</span></div>
-          <div class="flow-arrow" aria-hidden="true" style="--i:5.5">→</div>
-          <div class="flow-node" style="--i:6"><span>Bioenergia</span></div>
-          <div class="flow-arrow" aria-hidden="true" style="--i:6.5">→</div>
-          <div class="flow-node flow-node--end" style="--i:7"><span>Fertilizzanti naturali</span></div>
-          <div class="flow-arrow flow-arrow--loop" aria-hidden="true" style="--i:7.5">→</div>
+          <div class="flow__center">
+            <span class="flow__center-label" id="flowCenterLabel" aria-live="polite">Vigna</span>
+            <span class="flow__center-sub">il nostro circolo virtuoso</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ==========================================================
-         SOSTENIBILITÀ IN NUMERI
-         ========================================================== -->
+    <!--Numeri sostenibilità-->
     <section class="section numeri" id="numeri">
       <div class="container">
         <p class="section-eyebrow" data-reveal>Il rispetto è nella nostra natura</p>
@@ -286,9 +277,7 @@
       </div>
     </section>
 
-    <!-- ==========================================================
-         SDG ONU
-         ========================================================== -->
+    <!--Sdg-->
     <section class="section sdg" id="sdg">
       <div class="container">
         <p class="section-eyebrow" data-reveal>Insieme all'ONU</p>
@@ -314,9 +303,7 @@
       </div>
     </section>
 
-    <!-- ==========================================================
-         CERTIFICAZIONI
-         ========================================================== -->
+    <!--Certificazioni-->
     <section class="section certificazioni" id="certificazioni">
       <div class="container">
         <p class="section-eyebrow" data-reveal>La misura del nostro impegno</p>
@@ -374,12 +361,7 @@
       </div>
     </section>
 
-    <!-- ==========================================================
-         DOWNLOAD BILANCIO DI SOSTENIBILITÀ
-         Il file PDF NON è incluso in questo pacchetto: l'utente lo
-         scarica dal sito ufficiale caviro.com e lo salva nel percorso
-         indicato qui sotto (assets/pdf/bilancio-sostenibilita-caviro.pdf).
-         ========================================================== -->
+    <!--Download report-->
     <section class="section report" id="report">
       <div class="container report__box">
         <div class="report__image" data-reveal>
@@ -413,9 +395,7 @@
 
   </main>
 
-  <!-- ==========================================================
-       FOOTER
-       ========================================================== -->
+  <!--Footer-->
   <footer class="footer">
     <div class="container footer__grid">
       <div class="footer__col">

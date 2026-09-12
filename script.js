@@ -1,7 +1,4 @@
-/* ============================================================================
-   Caviro — Sostenibilità
-   script.js
-   ============================================================================ */
+//script.js
 
 document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
@@ -9,11 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbarScrollState();
   initRevealOnScroll();
   initAnimatedCounters();
+  initCircularFlow();
   initNewsletterForm();
 });
 
 
-//MENU HAMBURGER 
+//Menu hamburger per versione mobile 
 function initMobileMenu() {
   const toggleBtn = document.getElementById('navToggle');
   const menu = document.getElementById('navMenu');
@@ -35,7 +33,7 @@ function initMobileMenu() {
 }
 
 
-//BARRA DI AVANZAMENTO SCROLL
+//Barra avanzamento scroll progress
 function initScrollProgress() {
   const bar = document.getElementById('scrollProgress');
   if (!bar) return;
@@ -61,7 +59,7 @@ function initScrollProgress() {
 }
 
 
-//NAVBAR DINAMICA + LINK ATTIVO
+//Barra di navigazione
 function initNavbarScrollState() {
   const navbar = document.getElementById('header');
   if (!navbar) return;
@@ -73,7 +71,7 @@ function initNavbarScrollState() {
   window.addEventListener('scroll', updateNavbarState);
   updateNavbarState();
 
-  // Link attivo in base alla sezione visibile
+  //Link attivo in base alla sezione visibile
   const sections = document.querySelectorAll('main section[id]');
   const navLinks = document.querySelectorAll('.navbar__menu a[data-nav]');
 
@@ -95,7 +93,7 @@ function initNavbarScrollState() {
 }
 
 
-//REVEAL ON SCROLL
+//Animazione di scorrimento reveal on scroll
 function initRevealOnScroll() {
   const revealEls = document.querySelectorAll('[data-reveal]');
   if (revealEls.length === 0) return;
@@ -122,7 +120,7 @@ function initRevealOnScroll() {
 }
 
 
-//CONTATORI ANIMATI 
+//Contatori animati 
 function initAnimatedCounters() {
   const counters = document.querySelectorAll('.counter-value');
   if (counters.length === 0) return;
@@ -168,7 +166,57 @@ function initAnimatedCounters() {
 }
 
 
- //FORM NEWSLETTER 
+//Animazione economia circolare
+function initCircularFlow() {
+  const ring = document.getElementById('flowRing');
+  const centerLabel = document.getElementById('flowCenterLabel');
+  if (!ring || !centerLabel) return;
+
+  const nodes = Array.from(ring.querySelectorAll('.flow-node'));
+  if (nodes.length === 0) return;
+
+  const step_duration = 2150;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let current = 0;
+  let timer = null;
+
+  function activate(index) {
+    current = index;
+    nodes.forEach((node, i) => node.classList.toggle('is-active', i === index));
+    centerLabel.textContent = nodes[index].dataset.label || '';
+  }
+
+  function stop() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  function start() {
+    if (reduceMotion) return;
+    stop();
+    timer = setInterval(() => activate((current + 1) % nodes.length), step_duration);
+  }
+
+  nodes.forEach((node, i) => {
+    node.addEventListener('mouseenter', () => { stop(); activate(i); });
+    node.addEventListener('mouseleave', start);
+    node.addEventListener('focus', () => { stop(); activate(i); });
+    node.addEventListener('blur', start);
+    node.addEventListener('click', () => { activate(i); start(); });
+  });
+
+  activate(0);
+
+  //Animazione attiva solo se nella finestra di visualizzazione
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => (entry.isIntersecting ? start() : stop()));
+  }, { threshold: 0.25 });
+
+  observer.observe(ring);
+}
+
+
+ //Form iscrizione newsletter
 function initNewsletterForm() {
   const form = document.getElementById('newsletterForm');
   const emailInput = document.getElementById('newsletterEmail');

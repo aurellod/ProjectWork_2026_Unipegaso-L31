@@ -616,7 +616,6 @@ p { color: var(--text-light); }
 }
 [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
 
-/*Ritardo per i figli di un container con reveal*/
 [data-reveal] { transition-delay: var(--delay, 0s); }
 
 /*Media queries e responsivity*/
